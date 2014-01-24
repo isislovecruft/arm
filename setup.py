@@ -33,7 +33,7 @@ for arg in sys.argv:
     isDebInstall = True
     break
 
-docPath = "/usr/share/doc/%s" % ("tor-arm" if isDebInstall else "arm")
+docPath = "usr/share/doc/%s" % ("tor-arm" if isDebInstall else "arm")
 
 # Allow the docPath to be overridden via a '--docPath' argument. This is to
 # support custom documentation locations on Gentoo, as discussed in:
@@ -61,7 +61,7 @@ except ValueError: pass # --docPath flag not found
 
 manFilename = "arm/resoureces/arm.1"
 if "install" in sys.argv:
-  sys.argv += ["--install-purelib", "/usr/share"]
+  #sys.argv += ["--install-purelib", "/usr/share"]
 
   # Compresses the man page. This is a temporary file that we'll install. If
   # something goes wrong then we'll print the issue and use the uncompressed man
@@ -101,12 +101,12 @@ setup(name='arm',
       url='http://www.atagar.com/arm/',
       packages=installPackages,
       package_dir={'arm': 'arm'},
-      data_files=[("/usr/bin", ["run_arm"]),
-                  ("/usr/share/man/man1", [manFilename]),
+      data_files=[("usr/bin", ["run_arm"]),
+                  ("usr/share/man/man1", [manFilename]),
                   (docPath, ["armrc.sample"]),
-                  ("/usr/share/arm/gui", ["arm/gui/arm.xml"]),
-                  ("/usr/share/arm", ["arm/settings.cfg", "arm/uninstall"])] +
-                  getResources("/usr/share/arm", "resources"),
+                  ("usr/share/arm/gui", ["arm/gui/arm.xml"]),
+                  ("usr/share/arm", ["arm/settings.cfg", "arm/uninstall"])] +
+                  getResources("usr/share/arm", "resources"),
      )
 
 # Cleans up the temporary compressed man page.
