@@ -90,7 +90,7 @@ if "install" in sys.argv:
   except IOError, exc:
     print "Unable to compress man page: %s" % exc
 
-installPackages = ['arm', 'arm.cli', 'arm.cli.graphing', 'arm.cli.connections', 'arm.cli.menu', 'arm.util', 'arm.stem']
+installPackages = ['arm', 'arm.graphing', 'arm.connections', 'arm.menu', 'arm.util', 'arm.stem']
 
 setup(name='arm',
       version=VERSION,
