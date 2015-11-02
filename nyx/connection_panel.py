@@ -315,7 +315,10 @@ class ConnectionPanel(panel.Panel, threading.Thread):
       self._entries = sorted(self._entries, key = lambda entry: [entry.sort_value(attr) for attr in self._sort_order])
 
   def handle_key(self, key):
-    user_traffic_allowed = tor_controller().is_user_traffic_allowed()
+    try:
+      user_traffic_allowed = tor_controller().is_user_traffic_allowed()
+    except AttributeError as error:
+      user_traffic_allowed = False
 
     if key.is_scroll():
       page_height = self.get_preferred_size()[0] - 1
@@ -368,9 +371,9 @@ class ConnectionPanel(panel.Panel, threading.Thread):
 
       self.set_title_visible(True)
       self.redraw(True)
-    elif key.match('c') and user_traffic_allowed.inbound:
+    elif key.match('c') and user_traffic_allowed and user_traffic_allowed.inbound:
       nyx.popups.show_count_dialog('Client Locales', self._client_locale_usage)
-    elif key.match('e') and user_traffic_allowed.outbound:
+    elif key.match('e') and user_traffic_allowed and user_traffic_allowed.outbound:
       counts = {}
       key_width = max(map(len, self._exit_port_usage.keys()))
 
