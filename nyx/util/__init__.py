@@ -26,11 +26,14 @@ BASE_DIR = os.path.sep.join(__file__.split(os.path.sep)[:-2])
 TESTING = False
 
 try:
-  uses_settings = stem.util.conf.uses_settings('nyx', os.path.join(BASE_DIR, 'config'), lazy_load = False)
+  uses_settings = stem.util.conf.uses_settings('nyx', os.path.join(BASE_DIR, 'config', 'strings.cfg'), lazy_load = False)
 except IOError as exc:
   print("Unable to load nyx's internal configurations: %s" % exc)
   sys.exit(1)
-
+else:
+  if os.path.isdir(os.path.join(BASE_DIR, 'config')):
+    for config_file in os.listdir(os.path.join(BASE_DIR, 'config')):
+      uses_settings = stem.util.conf.uses_settings('nyx', os.path.join(BASE_DIR, 'config'))
 
 def tor_controller():
   """
